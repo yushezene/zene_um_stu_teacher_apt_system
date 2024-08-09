@@ -2,7 +2,8 @@
 student_teacher_appointment_system
 
 This project implements a web application for a student-teacher portal system. It utilizes Firebase for real-time database functionality.
-
+- index.html contains the HTML and Javascript Logic
+- style.css contains the styling 
 Features:
 Navigation Bar:
 Contains buttons to switch between Admin, Student, and Teacher portals.
