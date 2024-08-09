@@ -1,1 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student and Teacher Portals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- html -->
+    <div class="nav">
+        <button id="adminPortalButton">Admin Portal</button>
+        <button id="studentPortalButton">Student Portal</button>
+        <button id="teacherPortalButton">Teacher Portal</button>
+    </div>
+
+    <!-- Admin Portal -->
+    <div id="adminPortal" class="portal">
+        <h2>Admin Portal</h2>
+        <div class="box">
+            <div class="form">
+                <h3>Add Teacher</h3>
+                <form id="teacherForm">
+                    <div class="inputbox">
+                        <input type="text" id="teacherName" required>
+                        <span>Teacher Name</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="teacherDepartment" required>
+                        <span>Department</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="teacherSubject" required>
+                        <span>Subject</span>
+                    </div>
+                    <input type="submit" value="Add Teacher" class="sub" id="addTeacherButton">
+                </form>
+            </div>
+
+            <div class="form">
+                <h3>Update/Delete Teacher</h3>
+                <select id="teacherSelect">
+                    <option value="">Select a Teacher</option>
+                </select>
+                <form id="updateDeleteForm" style="display: none;">
+                    <div class="inputbox">
+                        <input type="text" id="updateTeacherName" required>
+                        <span>Teacher Name</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="updateTeacherDepartment" required>
+                        <span>Department</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" id="updateTeacherSubject" required>
+                        <span>Subject</span>
+                    </div>
+                    <input type="submit" value="Update Teacher" class="sub" id="updateTeacherButton">
+                    <button id="deleteTeacherButton" class="sub" style="background-color: red;">Delete Teacher</button>
+                </form>
+            </div>
+        </div>
+        <div class="form">
+            <h3>Approve Registration Student</h3>
+            <select id="studentApprovalSelect">
+                <option value="">Select a Student</option>
+            </select>
+            <button id="approveStudentButton" class="sub">Approve Student</button>
+            <button id="rejectStudentButton" class="sub" style="background-color: red;">Reject Student</button>
+        </div>
+    </div>
+
+   <!-- Student Portal HTML -->
+   <div id="studentPortal" class="portal">
+    <h2>Student Portal</h2>
+    
+    <!-- Registration Form -->
+    <div class="box">
+        <div class="form">
+            <h3>Register</h3>
+            <form id="studentRegisterForm">
+                <div class="inputbox">
+                    <input type="text" id="studentName" required>
+                    <span>Full Name</span>
+                </div>
+                <div class="inputbox">
+                    <input type="email" id="studentEmail" required>
+                    <span>Email</span>
+                </div>
+                <div class="inputbox">
+                    <input type="password" id="studentPassword" required>
+                    <span>Password</span>
+                </div>
+                <input type="submit" value="Register" class="sub" id="registerStudentButton">
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="box">
+        <div class="form">
+            <h3>Login</h3>
+            <form id="studentLoginForm">
+                <div class="inputbox">
+                    <input type="email" id="loginEmail" required>
+                    <span>Email</span>
+                </div>
+                <div class="inputbox">
+                    <input type="password" id="loginPassword" required>
+                    <span>Password</span>
+                </div>
+                <input type="submit" value="Login" class="sub" id="loginStudentButton">
+            </form>
+        </div>
+    </div>
+
+    <!-- Search and Book Appointment -->
+<div class="box" id="searchAndBookSection" style="display: none;">
+    <div class="form">
+        <h3>Search Teacher</h3>
+        <input type="text" id="searchTeacher" placeholder="Enter teacher name">
+        <button id="searchTeacherButton">Search</button>
+        <div id="teacherResults"></div>
+    </div>
+</div>
+
+<!-- Book Appointment Form -->
+<div class="box" id="bookAppointmentSection" style="display: none;">
+    <div class="form" id="bookAppointmentForm">
+        <h3>Book Appointment</h3>
+        <select id="selectTeacher">
+            <option value="">Select a Teacher</option>
+        </select>
+        <input type="datetime-local" id="appointmentDateTime" required>
+        <textarea id="appointmentPurpose" placeholder="Purpose of appointment" required></textarea>
+        <button id="bookAppointmentButton">Book Appointment</button>
+    </div>
+</div>
+</div>
+ 
+ <!-- Teacher Portal HTML -->
+<!-- Teacher Portal -->
+<div id="teacherPortal" class="portal">
+    <h2>Teacher Portal</h2>
+
+    <!-- Teacher Login Form -->
+    <div class="box">
+        <div class="form">
+            <h3>Login</h3>
+            <form id="teacherLoginForm">
+                <div class="inputbox">
+                    <input type="text" id="teacherLoginName" required>
+                    <span>Teacher Name</span>
+                </div>
+                <div class="inputbox">
+                    <input type="text" id="teacherLoginDepartment" required>
+                    <span>Department</span>
+                </div>
+                <input type="submit" value="Login" class="sub" id="loginTeacherButton">
+            </form>
+        </div>
+    </div>
+
+    <!-- Schedule Appointment -->
+    <div class="box" id="scheduleAppointmentSection" style="display: none;">
+        <div class="form">
+            <h3>Schedule Appointment</h3>
+            <input type="datetime-local" id="scheduleDateTime" required>
+            <textarea id="schedulePurpose" placeholder="Purpose of appointment" required></textarea>
+            <button id="scheduleAppointmentButton">Schedule Appointment</button>
+        </div>
+    </div>
+
+    <!-- View Appointments -->
+    <div class="box" id="viewAppointmentsSection" style="display: none;">
+        <button id="view-appointments-btn">View Appointments</button>
+        <div id="appointments-container"></div>
+    </div>
+
+    <!-- Logout -->
+    <div class="box" id="logoutSection" style="display: none;">
+        <div class="form">
+            <h3>Logout</h3>
+            <button id="logoutButton" class="sub" style="background-color: red;">Logout</button>
+        </div>
+    </div>
+</div>
+
+<!-- script-->
+  
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getDatabase, ref, query,set, get,orderByChild, equalTo, push, update, remove, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC9qa4DEBmz71QXWgkFgIoHtaxcBNRJiMQ",
+            authDomain: "student-teacher-64cbe.firebaseapp.com",
+            databaseURL: "https://student-teacher-64cbe-default-rtdb.firebaseio.com/",
+            projectId: "student-teacher-64cbe",
+            storageBucket: "student-teacher-64cbe.appspot.com",
+            messagingSenderId: "491803765902",
+            appId: "1:491803765902:web:fce3ebb1205dbdcbc7eddf",
+            measurementId: "G-C36DGTYN8S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        // Function to switch between portals
+        document.addEventListener('DOMContentLoaded', () => {
+            function switchPortal(showPortalId) {
+                const portals = ['adminPortal', 'studentPortal', 'teacherPortal'];
+                portals.forEach(portalId => {
+                    const portal = document.getElementById(portalId);
+                    portal.style.display = (portalId === showPortalId) ? 'block' : 'none';
+                });
+            }
+
+            document.getElementById("adminPortalButton").addEventListener('click', () => {
+                console.log('Admin Portal button clicked');
+                switchPortal('adminPortal');
+            });
+
+            document.getElementById("studentPortalButton").addEventListener('click', () => {
+                console.log('Student Portal button clicked');
+                switchPortal('studentPortal');
+            });
+
+            document.getElementById("teacherPortalButton").addEventListener('click', () => {
+                console.log('Teacher Portal button clicked');
+                switchPortal('teacherPortal');
+            });
+        });
+
+        // Admin Portal
+        document.getElementById("addTeacherButton").addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const teacherName = document.getElementById("teacherName").value;
+            const teacherDepartment = document.getElementById("teacherDepartment").value;
+            const teacherSubject = document.getElementById("teacherSubject").value;
+
+            if (!teacherName || !teacherDepartment || !teacherSubject) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            const newTeacherRef = push(ref(db, 'teachers'));
+            set(newTeacherRef, {
+                name: teacherName,
+                department: teacherDepartment,
+                subject: teacherSubject
+            }).then(() => {
+                alert("Teacher added successfully!");
+                document.getElementById("teacherForm").reset();
+                loadTeachers();
+            }).catch(error => {
+                console.error("Error adding teacher: ", error);
+            });
+        });
+
+        function loadTeachers() {
+            const teacherSelect = document.getElementById("teacherSelect");
+            teacherSelect.innerHTML = '<option value="">Select a Teacher</option>';
+
+            onValue(ref(db, 'teachers'), (snapshot) => {
+                const teachers = snapshot.val();
+                for (let id in teachers) {
+                    let option = document.createElement("option");
+                    option.value = id;
+                    option.textContent = teachers[id].name;
+                    teacherSelect.appendChild(option);
+                }
+            });
+        }
+
+        document.getElementById("teacherSelect").addEventListener('change', function() {
+            const teacherId = this.value;
+            if (teacherId) {
+                const teacherRef = ref(db, 'teachers/' + teacherId);
+                onValue(teacherRef, (snapshot) => {
+                    const teacher = snapshot.val();
+                    if (teacher) {
+                        document.getElementById("updateTeacherName").value = teacher.name;
+                        document.getElementById("updateTeacherDepartment").value = teacher.department;
+                        document.getElementById("updateTeacherSubject").value = teacher.subject;
+                        document.getElementById("updateDeleteForm").style.display = 'block';
+                    }
+                });
+            } else {
+                document.getElementById("updateDeleteForm").style.display = 'none';
+            }
+        });
+
+        document.getElementById("updateTeacherButton").addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const teacherId = document.getElementById("teacherSelect").value;
+            const teacherName = document.getElementById("updateTeacherName").value;
+            const teacherDepartment = document.getElementById("updateTeacherDepartment").value;
+            const teacherSubject = document.getElementById("updateTeacherSubject").value;
+
+            if (!teacherId || !teacherName || !teacherDepartment || !teacherSubject) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            update(ref(db, 'teachers/' + teacherId), {
+                name: teacherName,
+                department: teacherDepartment,
+                subject: teacherSubject
+            }).then(() => {
+                alert("Teacher updated successfully!");
+                document.getElementById("updateDeleteForm").reset();
+                loadTeachers();
+            }).catch(error => {
+                console.error("Error updating teacher: ", error);
+            });
+        });
+
+        document.getElementById("deleteTeacherButton").addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const teacherId = document.getElementById("teacherSelect").value;
+
+            if (!teacherId) {
+                alert('Please select a teacher to delete');
+                return;
+            }
+
+            remove(ref(db, 'teachers/' + teacherId)).then(() => {
+                alert("Teacher deleted successfully!");
+                document.getElementById("updateDeleteForm").reset();
+                loadTeachers();
+            }).catch(error => {
+                console.error("Error deleting teacher: ", error);
+            });
+        });
+//approve student 
+// Load pending students for approval
+function loadPendingStudents() {
+    const studentApprovalSelect = document.getElementById("studentApprovalSelect");
+    studentApprovalSelect.innerHTML = '<option value="">Select a Student</option>';
+
+    onValue(ref(db, 'students'), (snapshot) => {
+        const students = snapshot.val();
+        for (let id in students) {
+            if (!students[id].approved) {
+                let option = document.createElement("option");
+                option.value = id;
+                option.textContent = students[id].name + ' (' + students[id].email + ')';
+                studentApprovalSelect.appendChild(option);
+            }
+        }
+    });
+}
+
+// Approve student registration
+document.getElementById("approveStudentButton").addEventListener('click', function() {
+    const studentId = document.getElementById("studentApprovalSelect").value;
+
+    if (!studentId) {
+        alert('Please select a student to approve');
+        return;
+    }
+
+    update(ref(db, 'students/' + studentId), { approved: true })
+        .then(() => {
+            alert("Student approved successfully!");
+            loadPendingStudents();
+        })
+        .catch(error => {
+            console.error("Error approving student: ", error);
+        });
+});
+
+// Reject student registration
+document.getElementById("rejectStudentButton").addEventListener('click', function() {
+    const studentId = document.getElementById("studentApprovalSelect").value;
+
+    if (!studentId) {
+        alert('Please select a student to reject');
+        return;
+    }
+
+    remove(ref(db, 'students/' + studentId))
+        .then(() => {
+            alert("Student rejected successfully!");
+            loadPendingStudents();
+        })
+        .catch(error => {
+            console.error("Error rejecting student: ", error);
+        });
+});
+
+// Call the function to load pending students when the admin portal is loaded
+document.getElementById("adminPortalButton").addEventListener('click', () => {
+    loadPendingStudents();
+});
+
+//student portal 
+
+        // Student Registration
+document.getElementById("registerStudentButton").addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("studentName").value;
+    const email = document.getElementById("studentEmail").value;
+    const password = document.getElementById("studentPassword").value;
+
+    if (!name || !email || !password) {
+        alert('Please fill all fields');
+        return;
+    }
+
+    const newStudentRef = push(ref(db, 'students'));
+    set(newStudentRef, { name, email, password }).then(() => {
+        alert("Student registered successfully!");
+        document.getElementById("studentRegisterForm").reset();
+    }).catch(error => {
+        console.error("Error registering student: ", error);
+    });
+});
+// Student Login
+document.getElementById("loginStudentButton").addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+        alert('Please enter email and password');
+        return;
+    }
+
+    const studentQuery = query(ref(db, 'students'), orderByChild('email'), equalTo(email));
+    get(studentQuery).then(snapshot => {
+        let loggedIn = false;
+        snapshot.forEach(childSnapshot => {
+            const studentData = childSnapshot.val();
+            if (studentData.password === password) {
+                loggedIn = true;
+            }
+        });
+
+        if (loggedIn) {
+            alert("Login successful!");
+            // Hide login form and show the teacher selection and booking sections
+            document.getElementById("studentLoginForm").style.display = 'none';
+            document.getElementById("searchAndBookSection").style.display = 'block';
+            document.getElementById("bookAppointmentSection").style.display = 'block';
+        } else {
+            alert('Invalid email or password');
+        }
+    }).catch(error => {
+        console.error("Error logging in student: ", error);
+    });
+});
+
+
+   document.getElementById("searchTeacherButton").addEventListener('click', function() {
+    const searchQuery = document.getElementById("searchTeacher").value.toLowerCase();
+    const resultsDiv = document.getElementById("teacherResults");
+    const selectTeacher = document.getElementById("selectTeacher");
+
+    get(ref(db, 'teachers')).then(snapshot => {
+        resultsDiv.innerHTML = '';
+        selectTeacher.innerHTML = '<option value="">Select a Teacher</option>';
+        const teachers = snapshot.val();
+        for (const id in teachers) {
+            const teacher = teachers[id];
+            if (teacher.name.toLowerCase().includes(searchQuery)) {
+                const resultDiv = document.createElement('div');
+                resultDiv.textContent = `${teacher.name} - ${teacher.department} (${teacher.subject})`;
+                resultsDiv.appendChild(resultDiv);
+
+                const option = document.createElement("option");
+                option.value = id;
+                option.textContent = teacher.name;
+                selectTeacher.appendChild(option);
+            }
+        }
+    }).catch(error => {
+        console.error("Error searching for teachers: ", error);
+    });
+});
+
+        // Book Appointment
+        document.getElementById("bookAppointmentButton").addEventListener('click', function() {
+  const teacherId = document.getElementById("selectTeacher").value;
+  const dateTime = document.getElementById("appointmentDateTime").value;
+  const purpose = document.getElementById("appointmentPurpose").value;
+
+
+  if (!teacherId || !dateTime || !purpose) {
+    alert('Please fill all fields');
+    return;
+  }
+
+  const newAppointmentRef = push(ref(db, 'appointments')); // Create a new appointment reference
+  set(newAppointmentRef, {
+    teacherId: teacherId, // Store the teacher ID as a reference
+    dateTime: dateTime,
+    purpose: purpose,
+
+  }).then(() => {
+    alert("Appointment booked successfully!");
+    // ... clear fields
+  }).catch(error => {
+    console.error("Error booking appointment: ", error);
+  });
+});
+
+
+// Teacher Portal Logic
+//login
+document.getElementById("teacherLoginForm").addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('teacherLoginName').value.trim();
+            const department = document.getElementById('teacherLoginDepartment').value.trim();
+
+            if (name && department) {
+                const teacherRef = ref(db, 'teachers');
+                const teacherQuery = query(teacherRef, orderByChild('name'), equalTo(name));
+
+                get(teacherQuery).then(snapshot => {
+                    let teacherFound = false;
+                    snapshot.forEach(childSnapshot => {
+                        const teacherData = childSnapshot.val();
+                        if (teacherData.department === department) {
+                            teacherFound = true;
+                            sessionStorage.setItem('loggedInTeacherId', childSnapshot.key);
+                            document.getElementById("teacherLoginForm").style.display = 'none';
+                            document.getElementById("scheduleAppointmentSection").style.display = 'block';
+                            document.getElementById("viewAppointmentsSection").style.display = 'block';
+                            document.getElementById("logoutSection").style.display = 'block';
+                            fetchAndDisplayAppointments();
+                        }
+                    });
+
+                    if (!teacherFound) {
+                        alert('Invalid teacher name or department');
+                    }
+                }).catch(error => {
+                    console.error("Error logging in teacher: ", error);
+                });
+            }
+        });
+
+        function getLoggedInTeacherId() {
+            return sessionStorage.getItem('loggedInTeacherId');
+        }
+
+        // schedule apt
+        document.getElementById("scheduleAppointmentButton").addEventListener('click', function() {
+    const teacherId = getLoggedInTeacherId(); // Use the logged-in teacher's ID
+    const dateTime = document.getElementById("scheduleDateTime").value;
+    const purpose = document.getElementById("schedulePurpose").value;
+
+    if (!dateTime || !purpose) {
+        alert('Please fill all fields');
+        return;
+    }
+
+    const newAppointmentRef = push(ref(db, 'appointments')); // Create a new appointment reference
+    set(newAppointmentRef, {
+        teacherId: teacherId, // Store the teacher ID as a reference
+        dateTime: dateTime,
+        purpose: purpose,
+        status: 'Pending' // Set initial status
+    }).then(() => {
+        alert("Appointment scheduled successfully!");
+        document.getElementById("scheduleAppointmentForm").reset();
+        fetchAndDisplayAppointments(); // Refresh the displayed appointments
+    }).catch(error => {
+        console.error("Error scheduling appointment: ", error);
+    });
+});
+
+//disp apt
+        function displayAppointments(appointments) {
+    const container = document.getElementById('appointments-container');
+    container.innerHTML = '';
+
+    for (const appointmentId in appointments) {
+        const appointment = appointments[appointmentId];
+        const appointmentElement = document.createElement('div');
+        appointmentElement.innerHTML = `
+            <p>Date: ${appointment.dateTime}</p>
+            <p>Purpose: ${appointment.purpose}</p>
+            <p>Status: ${appointment.status || 'Pending'}</p>
+            <button data-id="${appointmentId}" class="approve-btn">Approve</button>
+            <button data-id="${appointmentId}" class="cancel-btn">Cancel</button>
+        `;
+        container.appendChild(appointmentElement);
+    }
+
+    // Attach event listeners to dynamically created buttons
+    document.querySelectorAll('.approve-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            approveAppointment(this.getAttribute('data-id'));
+        });
+    });
+
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            cancelAppointment(this.getAttribute('data-id'));
+        });
+    });
+}    
+
+function fetchAndDisplayAppointments() {
+    const loggedInTeacherId = getLoggedInTeacherId();
+    if (!loggedInTeacherId) {
+        console.error('No teacher is logged in.');
+        return;
+    }
+
+    const appointmentsRef = ref(db, 'appointments');
+    const teacherAppointmentsQuery = query(appointmentsRef, orderByChild('teacherId'), equalTo(loggedInTeacherId));
+
+    onValue(teacherAppointmentsQuery, (snapshot) => {
+        const appointments = snapshot.val();
+        if (appointments) {
+            displayAppointments(appointments);
+        } else {
+            console.log("No appointments found for this teacher.");
+        }
+    });
+}
+
+
+
+        //approve
+function approveAppointment(appointmentId) {
+    const appointmentRef = ref(db, `appointments/${appointmentId}`);
+    update(appointmentRef, { status: 'Approved' }).then(() => {
+        alert('Appointment approved');
+    }).catch(error => {
+        console.error("Error approving appointment: ", error);
+    });
+}
+//cancel
+function cancelAppointment(appointmentId) {
+    const appointmentRef = ref(db, `appointments/${appointmentId}`);
+    remove(appointmentRef).then(() => {
+        alert('Appointment canceled');
+    }).catch(error => {
+        console.error("Error canceling appointment: ", error);
+    });
+}
+
+        document.getElementById('view-appointments-btn').addEventListener('click', () => {
+            fetchAndDisplayAppointments();
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            sessionStorage.removeItem('loggedInTeacherId');
+            document.getElementById("teacherLoginForm").style.display = 'block';
+            document.getElementById("scheduleAppointmentSection").style.display = 'none';
+            document.getElementById("viewAppointmentsSection").style.display = 'none';
+            document.getElementById("logoutSection").style.display = 'none';
+        });
+    </script>
+</body>
+</html>
 
